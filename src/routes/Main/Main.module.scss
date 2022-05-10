@@ -1,0 +1,9 @@
+@use '../../styles/mixins/flexbox';
+
+.main {
+  @include flexbox.flexbox;
+  width: 500px;
+  height: 1000px;
+  margin: 40px;
+  background-color: gray;
+}
