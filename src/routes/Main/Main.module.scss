@@ -1,9 +1,8 @@
 @use '../../styles/mixins/flexbox';
+@use '../../styles/constants/colors';
 
 .main {
   @include flexbox.flexbox;
-  width: 500px;
-  height: 1000px;
-  margin: 40px;
-  background-color: gray;
+  color: colors.$BLACK;
+  background-color: colors.$WHITE;
 }
