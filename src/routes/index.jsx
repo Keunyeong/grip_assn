@@ -1,16 +1,16 @@
 import styles from './Routes.module.scss'
-import { Routes, Route } from 'react-router-dom'
 // import GNB from 'routes/_shared/GNB'
-import Main from './Main'
+import Main from '../components/main'
+import Header from '../components/header'
+import Footer from '../components/footer'
 
 const App = () => {
   return (
     <div className={styles.appWrapper}>
-      {/* <GNB /> */}
       <div className={styles.app}>
-        <Routes>
-          <Route path='/' element={<Main />} />
-        </Routes>
+        <Header />
+        <Main />
+        <Footer />
       </div>
     </div>
   )

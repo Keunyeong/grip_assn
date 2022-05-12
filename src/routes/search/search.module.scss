@@ -1,20 +1,9 @@
 @use '../../styles/mixins/flexbox';
 @use '../../styles/constants/colors';
 
-.main {
+.search {
   @include flexbox.flexbox;
   flex-direction: column;
   color: colors.$BLACK;
   background-color: transparent;
-}
-
-.title {
-  font-family: 'Source Sans Pro', sans-serif;
-  font-size: 2rem;
-  color: colors.$ICON;
-}
-
-.logo {
-  font-family: 'Source Sans Pro', sans-serif;
-  color: colors.$ICON;
 }

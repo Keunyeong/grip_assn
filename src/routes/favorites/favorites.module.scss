@@ -1,0 +1,9 @@
+@use '../../styles/mixins/flexbox';
+@use '../../styles/constants/colors';
+
+.favorites {
+  @include flexbox.flexbox;
+  flex-direction: column;
+  color: colors.$BLACK;
+  background-color: transparent;
+}
