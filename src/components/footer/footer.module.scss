@@ -2,11 +2,12 @@
 @use '../../styles/constants/colors';
 
 .footer {
-  @include flexbox.flexbox;
   position: absolute;
   bottom: 0;
   left: 0;
-  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
   width: 100%;
   height: 5rem;
   color: colors.$BLACK;
@@ -14,13 +15,24 @@
   box-shadow: -1px -1px 10px colors.$ICON;
 }
 
-.title {
+.nav {
+  @include flexbox.flexbox;
+  flex-direction: column;
+  width: 50vw;
+  height: 5rem;
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 2rem;
+  font-size: 1rem;
   color: colors.$ICON;
-}
 
-.logo {
-  font-family: 'Source Sans Pro', sans-serif;
-  color: colors.$ICON;
+  svg {
+    width: 2rem;
+    height: 2rem;
+    margin-bottom: 5px;
+    fill: colors.$ICON;
+  }
+
+  &:hover {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
 }
