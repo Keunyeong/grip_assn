@@ -2,8 +2,6 @@
 @use '../../styles/constants/colors';
 
 .search {
-  @include flexbox.flexbox;
-  flex-direction: column;
-  color: colors.$BLACK;
+  color: colors.$ICON;
   background-color: transparent;
 }

@@ -11,7 +11,7 @@
   height: 5rem;
   color: colors.$BLACK;
   background-color: transparent;
-  border: 2px solid colors.$ICON;
+  box-shadow: -1px -1px 10px colors.$ICON;
 }
 
 .title {
