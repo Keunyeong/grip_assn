@@ -3,7 +3,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { getMovieAPi } from 'services/movie'
 import { searchMovieList, searchWord } from 'store/atom'
 import { MovieData } from 'types/movie'
-import List from '../../components/common/list'
+import List from '../../components/list'
 import styles from './search.module.scss'
 
 const Search = () => {

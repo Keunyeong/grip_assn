@@ -5,3 +5,10 @@ export interface MovieData {
   Year: string
   imdbID: string
 }
+
+export interface PickMovie {
+  poster: string | undefined
+  title: string | undefined
+  year: string | undefined
+  imdbID: string | undefined
+}

@@ -1,5 +1,4 @@
-import React, { useRef } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 // import { useRecoilState } from 'recoil'
 // import { pageNum } from 'store/atom'
 
@@ -11,10 +10,13 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { pageNum, searchMovieList, searchWord } from 'store/atom'
 import { MovieData } from 'types/movie'
 import { getMovieAPi } from 'services/movie'
+import { useState } from 'react'
 
 const Main = () => {
-  const [page, setPage] = useRecoilState(pageNum)
-  const search = useRecoilValue(searchWord)
+  const location = useLocation()
+  const [error, setError] = useState<boolean>(false)
+  const [page, setPage] = useRecoilState<number>(pageNum)
+  const search = useRecoilValue<string>(searchWord)
   const setMovieList = useSetRecoilState<MovieData[]>(searchMovieList)
 
   const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
@@ -22,22 +24,27 @@ const Main = () => {
     const scorllHeight: number = event.currentTarget.scrollHeight
     const scorllTop: number = event.currentTarget.scrollTop
     if (scorllHeight - scorllTop === containerHeight) {
-      getMovieAPi({ s: search, page: page + 1 })
-        .then((res) => {
-          setMovieList((prev) => [...prev, ...res.data.Search])
-        })
-        .catch((e) => console.error(e))
-      setPage((prev: number) => prev + 1)
+      if (location.pathname === '/') {
+        getMovieAPi({ s: search, page: page + 1 })
+          .then((res) => {
+            setMovieList((prev) => [...prev, ...res.data.Search])
+          })
+          .catch(() => setError(true))
+        setPage((prev: number) => prev + 1)
+      }
     }
-    // console.log(target.scrollHeight)
   }
 
   return (
     <main className={styles.main} onScroll={handleScroll}>
-      <Routes>
-        <Route path='/' element={<Search />} />
-        <Route path='/favorites' element={<Favorites />} />
-      </Routes>
+      {error ? (
+        <div>ERROR</div>
+      ) : (
+        <Routes>
+          <Route path='/' element={<Search />} />
+          <Route path='/favorites' element={<Favorites />} />
+        </Routes>
+      )}
     </main>
   )
 }

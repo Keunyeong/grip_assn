@@ -1,14 +1,15 @@
 @use '/src/styles/constants/colors';
 
 .app {
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100vw;
-  height: 100vh;
-  overflow: auto;
+  width: 100%;
+  height: 100%;
   color: colors.$WHITE;
   background-color: colors.$BG;
 }
