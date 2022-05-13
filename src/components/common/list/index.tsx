@@ -14,7 +14,7 @@ const List = () => {
   }
 
   const handleImgError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
-    event.currentTarget.src = `${MovieIcon}`
+    event.currentTarget.src = 'https://cdn.iconscout.com/icon/premium/png-256-thumb/no-image-1753539-1493784.png'
     event.currentTarget.className = 'error'
   }
 
