@@ -25,14 +25,19 @@
   color: colors.$ICON;
 
   svg {
-    width: 2rem;
-    height: 2rem;
+    width: 1.4rem;
+    height: 1.4rem;
     margin-bottom: 5px;
     fill: colors.$ICON;
   }
 
   &:hover {
-    font-size: 1.1rem;
+    font-size: 1.4rem;
     font-weight: 600;
+
+    svg {
+      width: 2rem;
+      height: 2rem;
+    }
   }
 }
