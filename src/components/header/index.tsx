@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, SetStateAction, useState, Dispatch } from 'react'
 import { useSetRecoilState } from 'recoil'
 import { searchWord } from 'store/atom'
 
@@ -6,7 +6,12 @@ import 'animate.css'
 
 import styles from './header.module.scss'
 
-const Header = () => {
+interface Props {
+  setSearching: Dispatch<SetStateAction<boolean>>
+}
+
+const Header = (props: Props) => {
+  const { setSearching } = props
   const [inputText, setInputText] = useState<string>('SEARCH MOVIE HERE')
   const setSearchWord = useSetRecoilState(searchWord)
 
@@ -14,6 +19,7 @@ const Header = () => {
 
   const handleSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setSearching(true)
     setSearchWord(inputText)
   }
 

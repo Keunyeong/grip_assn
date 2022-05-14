@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useMount, useUnmount } from 'react-use'
-import { useSetRecoilState } from 'recoil'
 
 import styles from './Routes.module.scss'
 
@@ -11,6 +10,8 @@ import Loading from '../components/common/loading'
 
 const App = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [searching, setSearching] = useState<boolean>(false)
+
   let loading: ReturnType<typeof setTimeout>
   useMount(() => {
     loading = setTimeout(() => {
@@ -27,8 +28,8 @@ const App = () => {
         <Loading />
       ) : (
         <>
-          <Header />
-          <Main />
+          <Header setSearching={setSearching} />
+          <Main searching={searching} setSearching={setSearching} />
           <Footer />
         </>
       )}
