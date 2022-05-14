@@ -1,14 +1,15 @@
-import { useRecoilValue } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 
 import 'animate.css'
 import styles from './list.module.scss'
 
-import { searchMovieList } from '../../store/atom'
-import { PickMovie } from 'types/movie'
+import { pickMovieList, searchMovieList } from '../../store/atom'
+import { MovieData } from 'types/movie'
 import { ErrorImage } from 'assets/svgs'
 
 const List = () => {
   const movieList = useRecoilValue(searchMovieList)
+  const [pickList, setPickList] = useRecoilState(pickMovieList)
   if (!movieList) {
     return <div className={styles.noSearch}>NO RESULTS</div>
   }
@@ -18,24 +19,24 @@ const List = () => {
     event.currentTarget.className = 'error'
   }
   const handlePickClick = (event: React.MouseEvent<HTMLLIElement>): void => {
-    const { poster, title, year, imdbid } = event.currentTarget.dataset
-    const pickArr = JSON.parse(localStorage.getItem('pickArr') || '[]')
+    const { poster, title, year, imdbid, type } = event.currentTarget.dataset
 
     let isMovie: boolean = false
-    pickArr.forEach((movie: PickMovie) => {
-      if (movie.imdbid === imdbid) {
+    pickList.forEach((movie: MovieData) => {
+      if (movie.imdbID === imdbid) {
         isMovie = true
       }
     })
 
-    let newArr: PickMovie[]
+    let newArr: MovieData[]
     if (isMovie) {
-      newArr = pickArr.filter((movie: PickMovie) => movie.imdbid !== imdbid)
+      newArr = pickList.filter((movie: MovieData) => movie.imdbID !== imdbid)
     } else {
-      const pickMovie: PickMovie = { poster, title, year, imdbid }
-      newArr = [...pickArr, pickMovie]
+      const pickMovie: MovieData = { Poster: poster, Title: title, Year: year, imdbID: imdbid, Type: type }
+      newArr = [...pickList, pickMovie]
     }
     localStorage.setItem('pickArr', JSON.stringify(newArr))
+    setPickList(newArr)
   }
 
   return (
@@ -49,6 +50,7 @@ const List = () => {
             data-title={item.Title}
             data-poster={item.Poster}
             data-year={item.Year}
+            data-type={item.Type}
             data-imdbid={item.imdbID}
             onClick={handlePickClick}
             aria-hidden
@@ -56,6 +58,7 @@ const List = () => {
             <img src={item.Poster} alt='MOVIE' onError={handleImgError} />
             <div>
               <div>{item.Title}</div>
+              <div>{item.Type}</div>
               <div>{item.Year}</div>
             </div>
           </li>

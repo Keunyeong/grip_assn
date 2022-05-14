@@ -1,14 +1,7 @@
 export interface MovieData {
-  Poster: string
-  Title: string
-  Type: string
-  Year: string
-  imdbID: string
-}
-
-export interface PickMovie {
-  poster: string | undefined
-  title: string | undefined
-  year: string | undefined
-  imdbid: string | undefined
+  Poster: string | undefined
+  Title: string | undefined
+  Type: string | undefined
+  Year: string | undefined
+  imdbID: string | undefined
 }

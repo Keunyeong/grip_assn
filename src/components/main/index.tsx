@@ -5,7 +5,7 @@ import { useRecoilValue, useSetRecoilState, useRecoilState } from 'recoil'
 import styles from './main.module.scss'
 import { MovieData } from 'types/movie'
 
-import { pageNum, searchMovieList, searchWord } from 'store/atom'
+import { pageNum, pickMovieList, searchMovieList, searchWord } from 'store/atom'
 import Favorites from '../../routes/favorites'
 import Search from '../../routes/search'
 import { getMovieAPi } from 'services/movie'
@@ -17,12 +17,14 @@ interface Props {
 }
 
 const Main = (props: Props) => {
-  const { searching, setSearching } = props
-
   const location = useLocation()
+
+  const { searching, setSearching } = props
   const [page, setPage] = useRecoilState<number>(pageNum)
   const search = useRecoilValue<string>(searchWord)
   const setMovieList = useSetRecoilState<MovieData[]>(searchMovieList)
+  const setPickList = useSetRecoilState<MovieData[]>(pickMovieList)
+
   // 검색어를 전달 받으면 검색어에 맞는 리스트 받아오기.
   useEffect(() => {
     getMovieAPi({ s: search, page: 1 })
@@ -31,7 +33,8 @@ const Main = (props: Props) => {
         setMovieList(() => res.data.Search)
       })
       .catch(() => setSearching(true))
-  }, [search, setMovieList, setSearching])
+    setPickList(JSON.parse(localStorage.getItem('pickArr') || '[]'))
+  }, [search, setMovieList, setPickList, setSearching])
 
   const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
     const { clientHeight, scrollHeight, scrollTop } = event.currentTarget

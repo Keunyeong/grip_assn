@@ -6,6 +6,10 @@ export const searchMovieList = atom<MovieData[]>({
   key: '#searchMovieList',
   default: [],
 })
+export const pickMovieList = atom<MovieData[]>({
+  key: '#pickMovieList',
+  default: [],
+})
 
 export const searchWord = atom<string>({
   key: '#searchWord',
