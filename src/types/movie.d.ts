@@ -10,5 +10,5 @@ export interface PickMovie {
   poster: string | undefined
   title: string | undefined
   year: string | undefined
-  imdbID: string | undefined
+  imdbid: string | undefined
 }

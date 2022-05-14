@@ -18,21 +18,21 @@ const List = () => {
     event.currentTarget.className = 'error'
   }
   const handlePickClick = (event: React.MouseEvent<HTMLLIElement>): void => {
-    const { poster, title, year, imdbID } = event.currentTarget.dataset
+    const { poster, title, year, imdbid } = event.currentTarget.dataset
     const pickArr = JSON.parse(localStorage.getItem('pickArr') || '[]')
 
     let isMovie: boolean = false
     pickArr.forEach((movie: PickMovie) => {
-      if (movie.imdbID === imdbID) {
+      if (movie.imdbid === imdbid) {
         isMovie = true
       }
     })
 
     let newArr: PickMovie[]
     if (isMovie) {
-      newArr = pickArr.filter((movie: PickMovie) => movie.title !== title)
+      newArr = pickArr.filter((movie: PickMovie) => movie.imdbid !== imdbid)
     } else {
-      const pickMovie: PickMovie = { poster, title, year, imdbID }
+      const pickMovie: PickMovie = { poster, title, year, imdbid }
       newArr = [...pickArr, pickMovie]
     }
     localStorage.setItem('pickArr', JSON.stringify(newArr))
@@ -49,7 +49,7 @@ const List = () => {
             data-title={item.Title}
             data-poster={item.Poster}
             data-year={item.Year}
-            data-imdbID={item.imdbID}
+            data-imdbid={item.imdbID}
             onClick={handlePickClick}
             aria-hidden
           >

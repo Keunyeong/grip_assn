@@ -18,9 +18,9 @@ const FavoritesList = () => {
   }
 
   const handlePickClick = (event: React.MouseEvent<HTMLLIElement>): void => {
-    const { title } = event.currentTarget.dataset
+    const { imdbid } = event.currentTarget.dataset
 
-    const newArr = pickArr.filter((movie: PickMovie) => movie.title !== title)
+    const newArr = pickArr.filter((movie: PickMovie) => movie.imdbid !== imdbid)
     setPickArr(() => newArr)
     localStorage.setItem('pickArr', JSON.stringify(newArr))
   }
@@ -39,6 +39,7 @@ const FavoritesList = () => {
             data-title={item.title}
             data-poster={item.poster}
             data-year={item.year}
+            data-imdbid={item.imdbid}
             onClick={handlePickClick}
             aria-hidden
           >
