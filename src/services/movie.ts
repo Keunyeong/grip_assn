@@ -2,7 +2,7 @@ import { axios } from '../hooks/worker'
 
 // const movieApiKey = process.env.REACT_APP_WEATHER_MOVIE_KEY
 
-const url = `http://www.omdbapi.com/?apikey=897e5067&`
+const url = `https://www.omdbapi.com/?apikey=897e5067&`
 
 interface Params {
   s: string
