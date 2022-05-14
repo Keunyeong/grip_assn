@@ -2,6 +2,7 @@
 @use '../../styles/constants/colors';
 
 .main {
+  position: relative;
   width: inherit;
   height: inherit;
   padding: 10px;
@@ -10,4 +11,11 @@
   color: colors.$BLACK;
   background-color: transparent;
   scroll-behavior: smooth;
+}
+
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

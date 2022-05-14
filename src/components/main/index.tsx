@@ -9,6 +9,7 @@ import { pageNum, searchMovieList, searchWord } from 'store/atom'
 import Favorites from '../../routes/favorites'
 import Search from '../../routes/search'
 import { getMovieAPi } from 'services/movie'
+import { FallingLines } from 'react-loader-spinner'
 
 interface Props {
   searching: boolean
@@ -49,7 +50,9 @@ const Main = (props: Props) => {
   return (
     <main className={styles.main} onScroll={handleScroll}>
       {searching ? (
-        <div>로딩중...</div>
+        <div className={styles.spinner}>
+          <FallingLines width='110' color='#fae545' />
+        </div>
       ) : (
         <Routes>
           <Route path='/' element={<Search />} />
