@@ -5,7 +5,7 @@ import styles from './list.module.scss'
 
 import { pickMovieList, searchMovieList } from '../../store/atom'
 import { MovieData } from 'types/movie'
-import { ErrorImage } from 'assets/svgs'
+import { CheckedIcon, ErrorImage, UnCheckedIcon } from 'assets/svgs'
 
 const List = () => {
   const movieList = useRecoilValue(searchMovieList)
@@ -42,6 +42,12 @@ const List = () => {
   return (
     <ul className={styles.ul}>
       {movieList.map((item, index) => {
+        let isChecked: boolean = false
+        pickList.forEach((pickMovie) => {
+          if (pickMovie.imdbID === item.imdbID) {
+            isChecked = true
+          }
+        })
         const movieListKey = `movie${index}`
         return (
           <li
@@ -57,6 +63,15 @@ const List = () => {
           >
             <img src={item.Poster} alt='MOVIE' onError={handleImgError} />
             <div>
+              {isChecked ? (
+                <div className={styles.checkSvg}>
+                  <CheckedIcon />
+                </div>
+              ) : (
+                <div className={styles.checkSvg}>
+                  <UnCheckedIcon />
+                </div>
+              )}
               <div>{item.Title}</div>
               <div>{item.Type}</div>
               <div>{item.Year}</div>
