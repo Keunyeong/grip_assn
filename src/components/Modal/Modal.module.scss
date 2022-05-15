@@ -16,7 +16,7 @@
   bottom: 0;
   left: 0;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   width: 100%;
   height: 50%;
@@ -24,4 +24,54 @@
   overflow: hidden;
   background-color: colors.$ICON;
   border-radius: 2rem 2rem 0 0;
+}
+
+.movieData {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  width: 100%;
+
+  img {
+    width: 30%;
+  }
+}
+
+.movieInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 50%;
+  font-family: Ubuntu, sans-serif;
+  font-size: 1.2rem;
+  color: colors.$BG;
+
+  div {
+    margin-bottom: 2rem;
+    text-align: left;
+  }
+
+  div:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.closeBtn {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.pickBtn {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  padding: 0.5rem 1.5rem;
+  font-family: Ubuntu, sans-serif;
+  color: colors.$ICON;
+  background-color: colors.$BG;
+  border-radius: 10px;
+  transform: translate(-50%, -50%);
 }

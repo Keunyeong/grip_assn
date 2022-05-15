@@ -3,6 +3,7 @@ import styles from './Modal.module.scss'
 import { useRecoilState } from 'recoil'
 import { pickMovieList } from 'store/atom'
 import { MovieData } from 'types/movie'
+import { ErrorImage } from 'assets/svgs'
 
 interface CheckedMoviedata extends MovieData {
   isChecked: string | undefined
@@ -19,7 +20,6 @@ const Modal = (props: Props) => {
   const [pickList, setPickList] = useRecoilState(pickMovieList)
 
   const handleClick = () => {
-    console.log(movieData)
     setOnModal(false)
   }
   const handleCheckMovieClick = () => {
@@ -39,23 +39,30 @@ const Modal = (props: Props) => {
     setPickList(newArr)
     setOnModal(false)
   }
+
+  const handleImgError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    event.currentTarget.src = `${ErrorImage}`
+    event.currentTarget.className = 'error'
+  }
+
   return (
     <ModalPortal>
       <div className={styles.background}>
         <div className={styles.content}>
-          <div>{movieData.Title}</div>
-          <button onClick={handleClick} type='button'>
+          <div className={styles.movieData}>
+            <img src={movieData.Poster} alt='MOVIE' onError={handleImgError} />
+            <div className={styles.movieInfo}>
+              <div>{movieData.Title}</div>
+              <div>{movieData.Type}</div>
+              <div>{movieData.Year}</div>
+            </div>
+          </div>
+          <button onClick={handleClick} type='button' className={styles.closeBtn}>
             X
           </button>
-          {movieData.isChecked === 'true' ? (
-            <button onClick={handleCheckMovieClick} type='button'>
-              즐겨찾기 취소
-            </button>
-          ) : (
-            <button onClick={handleCheckMovieClick} type='button'>
-              즐겨찾기
-            </button>
-          )}
+          <button onClick={handleCheckMovieClick} type='button' className={styles.pickBtn}>
+            {movieData.isChecked === 'true' ? '즐겨찾기 취소' : '즐겨찾기'}
+          </button>
         </div>
       </div>
     </ModalPortal>
