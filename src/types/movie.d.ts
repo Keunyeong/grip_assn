@@ -4,4 +4,5 @@ export interface MovieData {
   Type: string | undefined
   Year: string | undefined
   imdbID: string | undefined
+  isChecked: string | undefined
 }

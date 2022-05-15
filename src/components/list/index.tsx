@@ -9,13 +9,9 @@ import { CheckedIcon, ErrorImage, UnCheckedIcon } from 'assets/svgs'
 import Modal from 'components/Modal/Modal'
 import { useState } from 'react'
 
-interface CheckedMoviedata extends MovieData {
-  isChecked: string | undefined
-}
-
 const List = () => {
   const [onModal, setOnModal] = useState<boolean>(false)
-  const [movieData, setMovieData] = useState<CheckedMoviedata>({
+  const [movieData, setMovieData] = useState<MovieData>({
     Poster: '',
     Title: '',
     Year: '',
@@ -33,7 +29,7 @@ const List = () => {
 
   const handlePickClick = (event: React.MouseEvent<HTMLLIElement>): void => {
     const { poster, title, year, imdbid, type, checked } = event.currentTarget.dataset
-    const pickMovie: CheckedMoviedata = {
+    const pickMovie: MovieData = {
       Poster: poster,
       Title: title,
       Year: year,

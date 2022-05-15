@@ -2,11 +2,22 @@ import 'animate.css'
 
 import styles from './list.module.scss'
 import { MovieData } from 'types/movie'
-import { useRecoilState } from 'recoil'
+import { useRecoilValue } from 'recoil'
 import { pickMovieList } from 'store/atom'
+import { useState } from 'react'
+import Modal from 'components/Modal/Modal'
 
 const FavoritesList = () => {
-  const [pickList, setPickList] = useRecoilState(pickMovieList)
+  const pickList = useRecoilValue<MovieData[]>(pickMovieList)
+  const [onModal, setOnModal] = useState<boolean>(false)
+  const [movieData, setMovieData] = useState<MovieData>({
+    Poster: '',
+    Title: '',
+    Year: '',
+    imdbID: '',
+    Type: '',
+    isChecked: '',
+  })
 
   const handleImgError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
     event.currentTarget.src = 'https://cdn.iconscout.com/icon/premium/png-256-thumb/no-image-1753539-1493784.png'
@@ -14,11 +25,17 @@ const FavoritesList = () => {
   }
 
   const handlePickClick = (event: React.MouseEvent<HTMLLIElement>): void => {
-    const { imdbid } = event.currentTarget.dataset
-
-    const newArr: MovieData[] = pickList.filter((movie: MovieData) => movie.imdbID !== imdbid)
-    setPickList(() => newArr)
-    localStorage.setItem('pickArr', JSON.stringify(newArr))
+    const { poster, title, year, imdbid, type } = event.currentTarget.dataset
+    const pickMovie: MovieData = {
+      Poster: poster,
+      Title: title,
+      Year: year,
+      imdbID: imdbid,
+      Type: type,
+      isChecked: 'true',
+    }
+    setMovieData(pickMovie)
+    setOnModal(true)
   }
 
   if (pickList.length === 0) {
@@ -26,6 +43,8 @@ const FavoritesList = () => {
   }
   return (
     <ul className={styles.ul}>
+      {onModal && <Modal setOnModal={setOnModal} movieData={movieData} />}
+
       {pickList.map((item, index) => {
         const movieListKey = `movie${index}`
         return (
@@ -37,6 +56,7 @@ const FavoritesList = () => {
             data-year={item.Year}
             data-imdbid={item.imdbID}
             data-type={item.Type}
+            data-checked={item.isChecked}
             onClick={handlePickClick}
             aria-hidden
           >

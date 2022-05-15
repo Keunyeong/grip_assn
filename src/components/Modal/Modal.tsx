@@ -5,20 +5,15 @@ import { pickMovieList } from 'store/atom'
 import { MovieData } from 'types/movie'
 import { ErrorImage } from 'assets/svgs'
 
-interface CheckedMoviedata extends MovieData {
-  isChecked: string | undefined
-}
-
 interface Props {
   setOnModal: React.Dispatch<React.SetStateAction<boolean>>
-  movieData: CheckedMoviedata
+  movieData: MovieData
 }
 
 // eslint-disable-next-line react/prop-types
 const Modal = (props: Props) => {
   const { setOnModal, movieData } = props
   const [pickList, setPickList] = useRecoilState(pickMovieList)
-
   const handleClick = () => {
     setOnModal(false)
   }
