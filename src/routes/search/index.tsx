@@ -1,5 +1,5 @@
-import List from '../../components/list'
 import styles from './search.module.scss'
+import List from '../../components/list'
 
 const Search = () => {
   return (

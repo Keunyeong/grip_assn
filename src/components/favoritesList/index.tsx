@@ -1,10 +1,11 @@
-import 'animate.css'
-
-import styles from './list.module.scss'
-import { MovieData } from 'types/movie'
-import { useRecoilValue } from 'recoil'
-import { pickMovieList } from 'store/atom'
 import { useState } from 'react'
+import { useRecoilValue } from 'recoil'
+
+import 'animate.css'
+import styles from './list.module.scss'
+
+import { MovieData } from 'types/movie'
+import { pickMovieList } from 'store/atom'
 import Modal from 'components/Modal/Modal'
 
 const FavoritesList = () => {

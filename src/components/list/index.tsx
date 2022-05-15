@@ -1,13 +1,13 @@
+import { useState } from 'react'
 import { useRecoilValue } from 'recoil'
 
 import 'animate.css'
 import styles from './list.module.scss'
+import { CheckedIcon, ErrorImage, UnCheckedIcon } from 'assets/svgs'
 
 import { pickMovieList, searchEnd, searchMovieList } from '../../store/atom'
 import { MovieData } from 'types/movie'
-import { CheckedIcon, ErrorImage, UnCheckedIcon } from 'assets/svgs'
 import Modal from 'components/Modal/Modal'
-import { useState } from 'react'
 
 const List = () => {
   const searchEndValue = useRecoilValue(searchEnd)

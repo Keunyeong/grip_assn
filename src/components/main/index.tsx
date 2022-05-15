@@ -1,15 +1,15 @@
 import { Dispatch, SetStateAction, useEffect } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { useRecoilValue, useSetRecoilState, useRecoilState } from 'recoil'
+import { FallingLines } from 'react-loader-spinner'
 
 import styles from './main.module.scss'
-import { MovieData } from 'types/movie'
 
+import { MovieData } from 'types/movie'
+import { getMovieAPi } from 'services/movie'
 import { pageNum, pickMovieList, searchEnd, searchMovieList, searchWord } from 'store/atom'
 import Favorites from '../../routes/favorites'
 import Search from '../../routes/search'
-import { getMovieAPi } from 'services/movie'
-import { FallingLines } from 'react-loader-spinner'
 
 interface Props {
   searching: boolean

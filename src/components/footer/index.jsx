@@ -1,7 +1,9 @@
-import styles from './footer.module.scss'
-import 'animate.css'
 import { NavLink } from 'react-router-dom'
 import cx from 'classnames'
+
+import 'animate.css'
+import styles from './footer.module.scss'
+
 import { SearchIcon, StarIcon } from '../../assets/svgs'
 
 const Footer = () => {

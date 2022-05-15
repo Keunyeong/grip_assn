@@ -1,12 +1,12 @@
 import { ChangeEvent, FormEvent, SetStateAction, useState, Dispatch } from 'react'
+import { useLocation } from 'react-router-dom'
 import { useSetRecoilState } from 'recoil'
-import { searchWord } from 'store/atom'
+import cx from 'classnames'
 
 import 'animate.css'
-
 import styles from './header.module.scss'
-import { useLocation } from 'react-router-dom'
-import cx from 'classnames'
+
+import { searchWord } from 'store/atom'
 
 interface Props {
   setSearching: Dispatch<SetStateAction<boolean>>

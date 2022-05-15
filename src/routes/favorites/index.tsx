@@ -1,5 +1,5 @@
-import FavoritesList from 'components/favoritesList'
 import styles from './favorites.module.scss'
+import FavoritesList from 'components/favoritesList'
 
 const Favorites = () => {
   return (

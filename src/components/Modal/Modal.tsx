@@ -1,9 +1,11 @@
-import ModalPortal from './ModalPortal'
-import styles from './Modal.module.scss'
 import { useRecoilState } from 'recoil'
+
+import { ErrorImage } from 'assets/svgs'
+import styles from './Modal.module.scss'
+
+import ModalPortal from './ModalPortal'
 import { pickMovieList } from 'store/atom'
 import { MovieData } from 'types/movie'
-import { ErrorImage } from 'assets/svgs'
 
 interface Props {
   setOnModal: React.Dispatch<React.SetStateAction<boolean>>
