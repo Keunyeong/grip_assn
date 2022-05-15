@@ -31,11 +31,12 @@ const Main = (props: Props) => {
     getMovieAPi({ s: search, page: 1 })
       .then((res) => {
         setSearching(false)
+        setSearchEnd(false)
         setMovieList(() => res.data.Search)
       })
       .catch(() => setSearching(true))
     setPickList(JSON.parse(localStorage.getItem('pickArr') || '[]'))
-  }, [search, setMovieList, setPickList, setSearching])
+  }, [search, setMovieList, setPickList, setSearchEnd, setSearching])
 
   // scroll 끝까지 내리면 리스트 더 요청하기.
   const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
