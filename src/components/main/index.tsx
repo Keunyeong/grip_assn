@@ -45,11 +45,7 @@ const Main = (props: Props) => {
       if (location.pathname === '/') {
         getMovieAPi({ s: search, page: page + 1 })
           .then((res) => {
-            if (res.data.Search.length === 0) {
-              setSearchEnd(true)
-            } else {
-              setMovieList((prev) => [...prev, ...res.data.Search])
-            }
+            setMovieList((prev) => [...prev, ...res.data.Search])
           })
           .catch(() => setSearchEnd(true))
         setPage((prev: number) => prev + 1)
