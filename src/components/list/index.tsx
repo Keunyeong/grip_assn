@@ -3,13 +3,14 @@ import { useRecoilValue } from 'recoil'
 import 'animate.css'
 import styles from './list.module.scss'
 
-import { pickMovieList, searchMovieList } from '../../store/atom'
+import { pickMovieList, searchEnd, searchMovieList } from '../../store/atom'
 import { MovieData } from 'types/movie'
 import { CheckedIcon, ErrorImage, UnCheckedIcon } from 'assets/svgs'
 import Modal from 'components/Modal/Modal'
 import { useState } from 'react'
 
 const List = () => {
+  const searchEndValue = useRecoilValue(searchEnd)
   const [onModal, setOnModal] = useState<boolean>(false)
   const [movieData, setMovieData] = useState<MovieData>({
     Poster: '',
@@ -87,6 +88,7 @@ const List = () => {
           </li>
         )
       })}
+      {searchEndValue && <li className={styles.lastli}>더 이상 검색결과 없음</li>}
     </ul>
   )
 }

@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { useMount, useUnmount } from 'react-use'
+import cx from 'classnames'
 
 import styles from './Routes.module.scss'
 
 import Main from '../components/main'
 import Header from '../components/header'
 import Footer from '../components/footer'
-import Loading from '../components/common/loading'
 
 const App = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true)
@@ -25,7 +25,9 @@ const App = () => {
   return (
     <div className={styles.app}>
       {isLoading ? (
-        <Loading />
+        <h1 className={cx(styles.title, 'animate__animated', 'animate__flash', 'animate__infinite', 'animate__slower')}>
+          PICK YOUR MOVIE
+        </h1>
       ) : (
         <>
           <Header setSearching={setSearching} />

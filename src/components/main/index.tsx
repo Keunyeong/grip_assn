@@ -5,7 +5,7 @@ import { useRecoilValue, useSetRecoilState, useRecoilState } from 'recoil'
 import styles from './main.module.scss'
 import { MovieData } from 'types/movie'
 
-import { pageNum, pickMovieList, searchMovieList, searchWord } from 'store/atom'
+import { pageNum, pickMovieList, searchEnd, searchMovieList, searchWord } from 'store/atom'
 import Favorites from '../../routes/favorites'
 import Search from '../../routes/search'
 import { getMovieAPi } from 'services/movie'
@@ -22,6 +22,7 @@ const Main = (props: Props) => {
   const { searching, setSearching } = props
   const [page, setPage] = useRecoilState<number>(pageNum)
   const search = useRecoilValue<string>(searchWord)
+  const setSearchEnd = useSetRecoilState(searchEnd)
   const setMovieList = useSetRecoilState<MovieData[]>(searchMovieList)
   const setPickList = useSetRecoilState<MovieData[]>(pickMovieList)
 
@@ -36,15 +37,21 @@ const Main = (props: Props) => {
     setPickList(JSON.parse(localStorage.getItem('pickArr') || '[]'))
   }, [search, setMovieList, setPickList, setSearching])
 
+  // scroll 끝까지 내리면 리스트 더 요청하기.
   const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
     const { clientHeight, scrollHeight, scrollTop } = event.currentTarget
     if (scrollHeight - scrollTop === clientHeight) {
+      // 검색 페이지 에서만
       if (location.pathname === '/') {
         getMovieAPi({ s: search, page: page + 1 })
           .then((res) => {
-            setMovieList((prev) => [...prev, ...res.data.Search])
+            if (res.data.Search.length === 0) {
+              setSearchEnd(true)
+            } else {
+              setMovieList((prev) => [...prev, ...res.data.Search])
+            }
           })
-          .catch(() => setSearching(true))
+          .catch(() => setSearchEnd(true))
         setPage((prev: number) => prev + 1)
       }
     }

@@ -54,3 +54,10 @@
   height: 1.2rem;
   fill: colors.$ICON;
 }
+
+.lastli {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
+}
