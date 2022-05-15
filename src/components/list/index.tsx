@@ -1,4 +1,4 @@
-import { useRecoilState, useRecoilValue } from 'recoil'
+import { useRecoilValue } from 'recoil'
 
 import 'animate.css'
 import styles from './list.module.scss'
@@ -6,41 +6,52 @@ import styles from './list.module.scss'
 import { pickMovieList, searchMovieList } from '../../store/atom'
 import { MovieData } from 'types/movie'
 import { CheckedIcon, ErrorImage, UnCheckedIcon } from 'assets/svgs'
+import Modal from 'components/Modal/Modal'
+import { useState } from 'react'
+
+interface CheckedMoviedata extends MovieData {
+  isChecked: string | undefined
+}
 
 const List = () => {
+  const [onModal, setOnModal] = useState<boolean>(false)
+  const [movieData, setMovieData] = useState<CheckedMoviedata>({
+    Poster: '',
+    Title: '',
+    Year: '',
+    imdbID: '',
+    Type: '',
+    isChecked: '',
+  })
   const movieList = useRecoilValue(searchMovieList)
-  const [pickList, setPickList] = useRecoilState(pickMovieList)
-  if (!movieList) {
-    return <div className={styles.noSearch}>NO RESULTS</div>
-  }
+  const pickList = useRecoilValue(pickMovieList)
 
   const handleImgError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
     event.currentTarget.src = `${ErrorImage}`
     event.currentTarget.className = 'error'
   }
+
   const handlePickClick = (event: React.MouseEvent<HTMLLIElement>): void => {
-    const { poster, title, year, imdbid, type } = event.currentTarget.dataset
-
-    let isMovie: boolean = false
-    pickList.forEach((movie: MovieData) => {
-      if (movie.imdbID === imdbid) {
-        isMovie = true
-      }
-    })
-
-    let newArr: MovieData[]
-    if (isMovie) {
-      newArr = pickList.filter((movie: MovieData) => movie.imdbID !== imdbid)
-    } else {
-      const pickMovie: MovieData = { Poster: poster, Title: title, Year: year, imdbID: imdbid, Type: type }
-      newArr = [...pickList, pickMovie]
+    const { poster, title, year, imdbid, type, checked } = event.currentTarget.dataset
+    const pickMovie: CheckedMoviedata = {
+      Poster: poster,
+      Title: title,
+      Year: year,
+      imdbID: imdbid,
+      Type: type,
+      isChecked: checked,
     }
-    localStorage.setItem('pickArr', JSON.stringify(newArr))
-    setPickList(newArr)
+    setMovieData(pickMovie)
+    setOnModal(true)
+  }
+
+  if (!movieList) {
+    return <div className={styles.noSearch}>NO RESULTS</div>
   }
 
   return (
     <ul className={styles.ul}>
+      {onModal && <Modal setOnModal={setOnModal} movieData={movieData} />}
       {movieList.map((item, index) => {
         let isChecked: boolean = false
         pickList.forEach((pickMovie) => {
@@ -58,6 +69,7 @@ const List = () => {
             data-year={item.Year}
             data-type={item.Type}
             data-imdbid={item.imdbID}
+            data-checked={isChecked}
             onClick={handlePickClick}
             aria-hidden
           >
@@ -84,9 +96,3 @@ const List = () => {
 }
 
 export default List
-
-// Poster: "https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_SX300.jpg"
-// Title: "Iron Man"
-// Type: "movie"
-// Year: "2008"
-// imdbID: "tt0371746"
